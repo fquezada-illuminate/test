@@ -49,18 +49,19 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 
 				switch key {
 				case "search":
-					// Cannot search by id (UUID in the DB), by field of type DateTime, and by type bool
-					if isFieldUUID(model, field) || isFieldDateTime(model, field) || isFieldBoolean(model, field) {
-						return errors.New(key + ": cannot search by '" + field + "' field")
-					}
+					return errors.New(value)
+					// // Cannot search by id (UUID in the DB), by field of type DateTime, and by type bool
+					// if isFieldUUID(model, field) || isFieldDateTime(model, field) || isFieldBoolean(model, field) {
+					// 	return errors.New(key + ": cannot search by '" + field + "' field")
+					// }
 
-					// Not allowed to search by an empty value.
-					if value == "" {
-						return errors.New(key + ": '" + field + "' field cannot be blank.")
-					}
+					// // Not allowed to search by an empty value.
+					// if value == "" {
+					// 	return errors.New(key + ": '" + field + "' field cannot be blank.")
+					// }
 
-					fb.Search[field] = value
-					break
+					// fb.Search[field] = value
+					// break
 				case "sort":
 					// Sort direction can only be 'asc' or 'desc'.
 					if value != "asc" && value != "desc" {
