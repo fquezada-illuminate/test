@@ -76,7 +76,7 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 
 	_, err = query.Load(objects)
 
-	return nil
+	return err
 }
 
 func (r BaseRepository) Create(object interface{}) error {
