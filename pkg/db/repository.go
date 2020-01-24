@@ -60,21 +60,21 @@ func (r BaseRepository) FindOneBy(object interface{}, fb FindBy) error {
 }
 
 func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
-	if err := r.IsPointer(objects); err != nil {
-		return err
-	}
+	// if err := r.IsPointer(objects); err != nil {
+	// 	return err
+	// }
 
-	object, err := r.getSliceElementType(objects)
-	if err != nil {
-		return err
-	}
+	_, err := r.getSliceElementType(objects)
+	// if err != nil {
+	// 	return err
+	// }
 
-	query, err := r.buildQuery(object, fb, true, true)
-	if err != nil {
-		return err
-	}
+	// query, err := r.buildQuery(object, fb, true, true)
+	// if err != nil {
+	// 	return err
+	// }
 
-	_, err = query.Load(objects)
+	// _, err = query.Load(objects)
 
 	return err
 }
