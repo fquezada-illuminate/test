@@ -65,9 +65,9 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 	// }
 
 	_, err := r.getSliceElementType(objects)
-	// if err != nil {
-	// 	return err
-	// }
+	if err != nil {
+		return err
+	}
 
 	// query, err := r.buildQuery(object, fb, true, true)
 	// if err != nil {
