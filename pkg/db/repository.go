@@ -69,7 +69,7 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 		return err
 	}
 
-	_, err := r.buildQuery(object, fb, true, true)
+	_, err = r.buildQuery(object, fb, true, true)
 	if err != nil {
 		return err
 	}
