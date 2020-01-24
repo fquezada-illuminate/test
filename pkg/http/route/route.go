@@ -1,0 +1,9 @@
+package route
+
+const (
+	CGET_ROUTE   = "CGET_ROUTE"
+	GET_ROUTE    = "GET_ROUTE"
+	POST_ROUTE   = "POST_ROUTE"
+	PATCH_ROUTE  = "PATCH_ROUTE"
+	DELETE_ROUTE = "DELETE_ROUTE"
+)
