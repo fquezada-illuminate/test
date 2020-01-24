@@ -69,14 +69,14 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 		return err
 	}
 
-	_, err = r.buildQuery(object, fb, true, true)
+	query, err := r.buildQuery(object, fb, true, true)
 	if err != nil {
 		return err
 	}
 
-	// _, err = query.Load(objects)
+	_, err = query.Load(objects)
 
-	return err
+	return nil
 }
 
 func (r BaseRepository) Create(object interface{}) error {
