@@ -54,7 +54,6 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 						return errors.New(key + ": cannot search by '" + field + "' field")
 					}
 
-					return errors.New(value)
 					// Not allowed to search by an empty value.
 					if value == "" {
 						return errors.New(key + ": '" + field + "' field cannot be blank.")
