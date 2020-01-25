@@ -76,9 +76,9 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 
 	_, err = query.Load(objects)
 
-	return errors.New(query.Query)
+	// return errors.New(err)
 
-	// return err
+	return err
 }
 
 func (r BaseRepository) Create(object interface{}) error {
@@ -156,6 +156,7 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 
 	for f, v := range fb.Conditions {
 		query = query.Where(columnMap[f]+" = ?", v)
+		return nil, fmt.Errorf("property '%s' is already being filtered", f)
 	}
 
 	for f, v := range fb.Search {
