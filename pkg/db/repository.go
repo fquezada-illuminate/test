@@ -154,21 +154,21 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 
 	query := r.Db.Select("*").From(r.Table)
 
-	var myslice []string
 	for f, v := range fb.Conditions {
 		query = query.Where(columnMap[f]+" = ?", v)
+	}
+
+	var myslice []string
+	for f, v := range fb.Search {
+		// check if filter exists in Conditions
 		myslice = append(myslice, columnMap[f])
+		if _, ok := fb.Conditions[f]; ok {
+			return nil, fmt.Errorf("property '%s' is already being filtered", f)
+		}
+
+		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
 	}
 	return nil, fmt.Errorf("property '%s'", myslice)
-
-	// for f, v := range fb.Search {
-	// 	// check if filter exists in Conditions
-	// 	if _, ok := fb.Conditions[f]; ok {
-	// 		return nil, fmt.Errorf("property '%s' is already being filtered", f)
-	// 	}
-
-	// 	query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
-	// }
 
 	// for f, v := range fb.OrderBy {
 	// 	query = query.OrderDir(columnMap[f], v == "asc")
