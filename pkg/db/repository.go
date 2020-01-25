@@ -76,7 +76,9 @@ func (r BaseRepository) FindBy(objects interface{}, fb FindBy) error {
 
 	_, err = query.Load(objects)
 
-	return err
+	return errors.New(r.Table)
+
+	// return err
 }
 
 func (r BaseRepository) Create(object interface{}) error {
