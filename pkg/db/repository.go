@@ -162,11 +162,12 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 	for f, v := range fb.Search {
 		// check if filter exists in Conditions
 		myslice = append(myslice, columnMap[f])
-		if _, ok := fb.Conditions[f]; ok {
-			return nil, fmt.Errorf("property '%s' is already being filtered", f)
-		}
+		return nil, fmt.Errorf("property '%s' is already being filtered", v)
+		// if _, ok := fb.Conditions[f]; ok {
+		// 	return nil, fmt.Errorf("property '%s' is already being filtered", f)
+		// }
 
-		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		// query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
 	}
 	return nil, fmt.Errorf("property '%s'", myslice)
 
