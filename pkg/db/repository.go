@@ -160,28 +160,28 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 
 	var myslice []string
 	for f, v := range fb.Search {
-		// check if filter exists in Conditions
-		myslice = append(myslice, columnMap[f])
-		return nil, fmt.Errorf("property '%s' is already being filtered", v)
-		// if _, ok := fb.Conditions[f]; ok {
-		// 	return nil, fmt.Errorf("property '%s' is already being filtered", f)
-		// }
+		check if filter exists in Conditions
+		if _, ok := fb.Conditions[f]; ok {
+			return nil, fmt.Errorf("property '%s' is already being filtered", f)
+		}
 
-		// query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		// myslice = append(myslice, columnMap[f])
+		// return nil, fmt.Errorf("value '%s'", v)
 	}
-	return nil, fmt.Errorf("property '%s'", myslice)
+	// return nil, fmt.Errorf("value '%s'", myslice)
 
-	// for f, v := range fb.OrderBy {
-	// 	query = query.OrderDir(columnMap[f], v == "asc")
-	// }
+	for f, v := range fb.OrderBy {
+		query = query.OrderDir(columnMap[f], v == "asc")
+	}
 
-	// if addOffset && fb.Offset != 0 {
-	// 	query = query.Offset(fb.Offset)
-	// }
+	if addOffset && fb.Offset != 0 {
+		query = query.Offset(fb.Offset)
+	}
 
-	// if addLimit && fb.Limit != 0 {
-	// 	query = query.Limit(fb.Limit)
-	// }
+	if addLimit && fb.Limit != 0 {
+		query = query.Limit(fb.Limit)
+	}
 
-	// return query, nil
+	return query, nil
 }
