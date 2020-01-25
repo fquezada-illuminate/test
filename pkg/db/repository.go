@@ -158,7 +158,7 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 		query = query.Where(columnMap[f]+" = ?", v)
 	}
 
-	var myslice []string
+	// var myslice []string
 	for f, v := range fb.Search {
 		// check if filter exists in Conditions
 		if _, ok := fb.Conditions[f]; ok {
