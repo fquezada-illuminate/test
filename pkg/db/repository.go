@@ -165,9 +165,13 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 			return nil, fmt.Errorf("property '%s' is already being filtered", f)
 		}
 
-		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		if f == "birthDate" {
+			query.WhereCond = append(query.WhereCond, dbr.Eq(columnMap[f], fmt.Sprintf("%v", v)))
+		} else {
+			query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		}
 		// myslice = append(myslice, columnMap[f])
-		return nil, fmt.Errorf("value '%s'", fmt.Sprintf("%%%v%%", v))
+		// return nil, fmt.Errorf("value '%s'", fmt.Sprintf("%%%v%%", v))
 	}
 	// return nil, fmt.Errorf("value '%s'", myslice)
 
