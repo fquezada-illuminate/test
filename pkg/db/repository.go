@@ -167,7 +167,7 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 
 		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
 		// myslice = append(myslice, columnMap[f])
-		// return nil, fmt.Errorf("value '%s'", v)
+		return nil, fmt.Errorf("value '%s'", fmt.Sprintf("%%%v%%", v))
 	}
 	// return nil, fmt.Errorf("value '%s'", myslice)
 
