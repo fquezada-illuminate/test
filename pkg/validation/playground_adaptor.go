@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/illuminateeducation/rest-service-lib-go/pkg/types"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -63,10 +64,10 @@ func (pgv PlaygroundValidator) transformErrors(err error) error {
 // any additional functions and tags to the base library
 func NewPlaygroundValidator() Validator {
 	v := validator.New()
-	// v.RegisterValidation("notblank", playgroundStringNotBlank)
-	// v.RegisterValidation("uuidnotblank", playgroundUuidNotBlank)
-	// v.RegisterCustomTypeFunc(ValidateValuer, types.NullString{})
-	// v.RegisterTagNameFunc(JSONTagNameFunc)
+	v.RegisterValidation("notblank", playgroundStringNotBlank)
+	v.RegisterValidation("uuidnotblank", playgroundUuidNotBlank)
+	v.RegisterCustomTypeFunc(ValidateValuer, types.NullString{})
+	v.RegisterTagNameFunc(JSONTagNameFunc)
 
 	return &PlaygroundValidator{
 		validator: v,
