@@ -27,9 +27,9 @@ func (pgv *PlaygroundValidator) Var(field interface{}, options interface{}) erro
 }
 
 func (pgv *PlaygroundValidator) Struct(s interface{}) error {
-	err := pgv.validator.Struct(s)
+	// err := pgv.validator.Struct(s)
 
-	return pgv.transformErrors(err)
+	return nil
 }
 
 // TransformErrors will take the errors from the playground library into a standard error
