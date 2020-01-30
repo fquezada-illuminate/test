@@ -19,6 +19,11 @@ import (
 func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *validation.Validator) error {
 	filters := strings.Split(uri, "?")
 
+	// key cannot be password
+	if filters[0] == "password" {
+		return errors.New(filters[0] + ": cannot be password")
+	}
+
 	if len(filters) > 1 {
 		filters = strings.Split(filters[1], "&")
 
@@ -35,11 +40,6 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 				// Checks if `=` was omitted from the parameter
 				if equalIndex == -1 {
 					return errors.New(key + ": '" + field + "' field cannot be blank.")
-				}
-
-				// key cannot be password
-				if key == "password" {
-					return errors.New(key + ": cannot be password")
 				}
 
 				value := filter[equalIndex+1:]
