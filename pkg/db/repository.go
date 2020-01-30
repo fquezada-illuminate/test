@@ -162,7 +162,14 @@ func (r BaseRepository) buildQuery(object interface{}, fb FindBy, addOffset bool
 			return nil, fmt.Errorf("property '%s' is already being filtered", f)
 		}
 
-		query.WhereCond = append(query.WhereCond, dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v)))
+		searchBy := dbr.Like(columnMap[f], fmt.Sprintf("%%%v%%", v))
+		switch f {
+		case "birthDate":
+			searchBy = dbr.Eq(columnMap[f], fmt.Sprintf("%v", v))
+		case "password":
+			return nil, fmt.Errorf("property '%s' is not being filterable", f)
+		}
+		query.WhereCond = append(query.WhereCond, searchBy)
 	}
 
 	for f, v := range fb.OrderBy {

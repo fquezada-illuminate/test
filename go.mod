@@ -23,3 +23,5 @@ require (
 	gopkg.in/go-playground/validator.v9 v9.27.0
 	gopkg.in/guregu/null.v3 v3.4.0
 )
+
+go 1.13
