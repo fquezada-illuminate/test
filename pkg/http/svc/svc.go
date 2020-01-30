@@ -20,7 +20,7 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 	filters := strings.Split(uri, "?")
 
 	// key cannot be password
-	if filters[0] == "password" {
+	if strings.Contains(filters[0], "password") {
 		return errors.New(filters[0] + ": cannot be password")
 	}
 
