@@ -72,6 +72,11 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 						return errors.New(key + ": cannot sort by id")
 					}
 
+					// Cannot sort by password
+					if field == "password" {
+						return errors.New(key + ": cannot sort by" + field)
+					}
+
 					fb.OrderBy[field] = value
 					break
 				default:
