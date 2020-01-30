@@ -37,6 +37,11 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 					return errors.New(key + ": '" + field + "' field cannot be blank.")
 				}
 
+				// key cannot be password
+				if key == "password" {
+					return errors.New(key + ": cannot be password")
+				}
+
 				value := filter[equalIndex+1:]
 				fields := db.GetJsonToDbMap(model)
 
