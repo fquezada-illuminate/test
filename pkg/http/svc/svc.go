@@ -58,6 +58,10 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 					if value == "" {
 						return errors.New(key + ": '" + field + "' field cannot be blank.")
 					}
+					// Cannot search by password
+					if field == "password" {
+						return errors.New(key + ": cannot search by " + field)
+					}
 
 					fb.Search[field] = value
 					break
@@ -74,7 +78,7 @@ func GetQueryParams(uri string, fb *db.FindBy, model interface{}, validator *val
 
 					// Cannot sort by password
 					if field == "password" {
-						return errors.New(key + ": cannot sort by" + field)
+						return errors.New(key + ": cannot sort by " + field)
 					}
 
 					fb.OrderBy[field] = value
